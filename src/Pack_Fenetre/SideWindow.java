@@ -26,6 +26,16 @@ import org.apache.commons.io.FileUtils;
  */
 public class SideWindow extends JDialog{
 	
+	/*
+	   _____       _ _   _       _ _           _   _             
+	  |_   _|     (_) | (_)     | (_)         | | (_)            
+	    | |  _ __  _| |_ _  __ _| |_ ___  __ _| |_ _  ___  _ __  
+	    | | | '_ \| | __| |/ _` | | / __|/ _` | __| |/ _ \| '_ \ 
+	   _| |_| | | | | |_| | (_| | | \__ \ (_| | |_| | (_) | | | |
+	  |_____|_| |_|_|\__|_|\__,_|_|_|___/\__,_|\__|_|\___/|_| |_|
+	*/
+	
+	
 	private static final long serialVersionUID = -8863025054299250887L;
 	
 	/**
@@ -33,35 +43,15 @@ public class SideWindow extends JDialog{
 	 */
 	JLabel dataLabel;
 	
-	/**
-	 * l'appel de cette fonction met à  jour les données affichées
-	 * @param simu
-	 * 
-	 */
-	public void setDataLabel(Simulation simu){
-		String text ="<html>";
-		text += "Time : "+simu.getTime()+"<br><br>";
-		text += "Nombre de voyageurs : "+simu.getListeClients().size()+"<br><br>";
-		text += "Nombre de voitures : "+simu.getListeVoitures().size()+"<br><br>";
-		text += "Moyenne des vitesses instantanées :<br>"+simu.getCarSpeedMean()+"<br><br>";
-		text += "Moyenne des vitesses des trajets terminés :<br>"+simu.getClientSpeedMean()+"<br><br>";
-		text += "Moyenne des vitesses des trajets en cours :<br>"+simu.getClientRealSpeedMean()+"<br><br>";
-		text += "Taux de voyageurs arrivés :<br>"+simu.getArrivedRate()+"<br><br>";
-		text += "Somme des distances parcourues :<br>"+simu.getDistSum()+"<br><br>";
-		text += "Consommation de carburant :<br>"+simu.getCarbu()+"<br><br>";
-		text += "Voitures participant au covoiturage :<br>";
-		for(Car car: simu.getListeVoitures())
-		{
-			if(car.getIsDoingCarSharing()){
-				text +="Voiture n° "+car.getIdCar()+"<br> Occupants : ";
-				for(Client cli: car.getOccupantListCar())
-					text += (cli.getStateClient() == 1)?cli.getIdClient()+" ":"<s>"+cli.getIdClient()+"</s> ";
-				text += "<br><br>";
-			}
-		}
-		text += "</html>";
-		dataLabel.setText(text);
-	}
+	/*
+	  __  __      _   _               _           
+	 |  \/  |    | | | |             | |          
+	 | \  / | ___| |_| |__   ___   __| | ___  ___ 
+	 | |\/| |/ _ \ __| '_ \ / _ \ / _` |/ _ \/ __|
+	 | |  | |  __/ |_| | | | (_) | (_| |  __/\__ \
+	 |_|  |_|\___|\__|_| |_|\___/ \__,_|\___||___/
+	                                              
+	 */	
 	
 	/**
 	 * Initialisation de la fenÃªtre de cÃ´tÃ© (???)
@@ -112,5 +102,43 @@ public class SideWindow extends JDialog{
 		setVisible(true);
 		//on décale window à gauche
 		window.setLocation(0,window.getLocation().y);
+	}
+	
+	/*
+	   _____      _               _____      _   
+	  / ____|    | |     ___     / ____|    | |  
+	 | |  __  ___| |_   ( _ )   | (___   ___| |_ 
+	 | | |_ |/ _ \ __|  / _ \/\  \___ \ / _ \ __|
+	 | |__| |  __/ |_  | (_>  <  ____) |  __/ |_ 
+	  \_____|\___|\__|  \___/\/ |_____/ \___|\__|
+	                                             
+	  */
+	
+	/**
+	 * l'appel de cette fonction met à  jour les données affichées
+	 * @param simu
+	 * 
+	 */
+	public void setDataLabel(Simulation simu){
+		String text ="<html>";
+		text += "Time : "+simu.getTime()+"<br><br>";
+		text += "Nombre de voyageurs : "+simu.getListeClients().size()+"<br><br>";
+		text += "Nombre de voitures : "+simu.getListeVoitures().size()+"<br><br>";
+		text += "Moyenne des vitesses instantanées :<br>"+simu.getCarSpeedMean()+"<br><br>";
+		text += "Moyenne des vitesses des trajets terminés :<br>"+simu.getClientSpeedMean()+"<br><br>";
+		text += "Moyenne des vitesses des trajets en cours :<br>"+simu.getClientRealSpeedMean()+"<br><br>";
+		text += "Taux de voyageurs arrivés :<br>"+simu.getArrivedRate()+"<br><br>";
+		text += "Voitures participant au covoiturage :<br>";
+		for(Car car: simu.getListeVoitures())
+		{
+			if(car.getIsDoingCarSharing()){
+				text +="Voiture n° "+car.getIdCar()+"<br> Occupants : ";
+				for(Client cli: car.getOccupantListCar())
+					text += (cli.getStateClient() == 1)?cli.getIdClient()+" ":"<s>"+cli.getIdClient()+"</s> ";
+				text += "<br><br>";
+			}
+		}
+		text += "</html>";
+		dataLabel.setText(text);
 	}
 }

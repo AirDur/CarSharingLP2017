@@ -11,9 +11,7 @@ import java.util.Arrays;
  * @since Build III -  v0.0
  */
 
-public class Algo_Deterministe implements I_Algorithme {
-
-	//Note personnel : 612 lignes 
+public class Algo_Deterministe{
 	
 	int clientWaitingNumber;
 	int carAlgoNumber;

@@ -24,7 +24,7 @@ package Pack_Appli;
  * <li> l : numéro du Client sélectionné </li>
  * <li> m : une matrice </li>
  * <li> n : numéro de la simulation enregistrée sélectionnée </li>
- * <li> p : un Point </li>
+ * <li> p : un PositionPassager </li>
  * <li> q : une ordonnée d'une matrice de passage, varie de 0 Ã  2*clientAlgoNumber-1,
  *      pair pour les positions, impair pour les target </li>
  * <li> t : un tableau </li>

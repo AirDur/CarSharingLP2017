@@ -23,11 +23,11 @@ public class Passager {
 	 */
 	private int id;
 	/**
-	 * PositionPassager de départ et point d'arrivée.
+	 * PositionPassager de dÃ©part et point d'arrivÃ©e.
 	 */
 	private PositionPassager[] positionPassagers = new PositionPassager[2] ;
 	/**
-	 * Nombre de passager totaux (inutile si Base de donnée : SELECT COUNT(*)
+	 * Nombre de passager totaux (inutile si Base de donnÃ©e : SELECT COUNT(*)
 	 */
 	private static int nbPassagers = 0;
 	
@@ -67,9 +67,9 @@ public class Passager {
 	
 	
 	 /**
-     * Méthode qui permet de générer de façon aléatoire nbPassager passager
-     * @param nbPassager nombre de passager créé de façon aléatoire
-     * @return Tableau de passager généré aléatoirement
+     * MÃ©thode qui permet de gÃ©nÃ©rer de faÃ§on alÃ©atoire nbPassager passager
+     * @param nbPassager nombre de passager crÃ©Ã© de faÃ§on alÃ©atoire
+     * @return Tableau de passager gÃ©nÃ©rÃ© alÃ©atoirement
      * @version Build III -  v0.2
 	 * @since Build III -  v0.2
      */
@@ -81,6 +81,7 @@ public class Passager {
 			lesPassagers[i] = unPassager;
 		}
 		return lesPassagers;
+
 	}
 	
 	/*
@@ -98,7 +99,6 @@ public class Passager {
 
 	public PositionPassager getArrivee() {
 		return this.positionPassagers[0];
-	}
 
 	public PositionPassager getDepart() {
 		return this.positionPassagers[1];
@@ -114,10 +114,20 @@ public class Passager {
     @Override
     public String toString() {
         String passagerString = "";
-        passagerString += "Passager n°"+this.id+" position de départ: "+this.getDepart()+", destination : "+this.getArrivee(); 
+        passagerString += "Passager nÂ°"+this.id+" position de dÃ©part: "+this.getDepart()+", destination : "+this.getArrivee(); 
         return passagerString;
     }
 
+	public static int getPireDistance(Passager[] lesPassagers) {
+		int somme = 0;
+		for(int i = 0; i < lesPassagers.length ; i++) {
+			int distanceEntreDeuxPoints = 0;
+     	   distanceEntreDeuxPoints += Math.abs(lesPassagers[i].getDepart().getPos_y() - lesPassagers[i].getArrivee().getPos_y());
+     	   distanceEntreDeuxPoints += Math.abs(lesPassagers[i].getDepart().getPos_x() - lesPassagers[i].getArrivee().getPos_x());
+     	   somme += distanceEntreDeuxPoints;
+		}
+		return somme;
+	}
    
 
 }

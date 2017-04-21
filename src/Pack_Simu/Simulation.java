@@ -8,31 +8,68 @@ import java.awt.Point;
 /**
  * Classe simulation
  * @author Romain Duret
- * @version Build III -  v0.1
+ * @version Build III -  v0.3
  * @since Build III -  v0.0
  *
  */
 public class Simulation{
 
+	
+	/*
+	   _____       _ _   _       _ _           _   _             
+	  |_   _|     (_) | (_)     | (_)         | | (_)            
+	    | |  _ __  _| |_ _  __ _| |_ ___  __ _| |_ _  ___  _ __  
+	    | | | '_ \| | __| |/ _` | | / __|/ _` | __| |/ _ \| '_ \ 
+	   _| |_| | | | | |_| | (_| | | \__ \ (_| | |_| | (_) | | | |
+	  |_____|_| |_|_|\__|_|\__,_|_|_|___/\__,_|\__|_|\___/|_| |_|
+	*/
+	
+	
+	/**
+	 * Temps (???)
+	 */
 	private int time;
-	private boolean needAlgorithme;
-	private ArrayList<Car> ListeVoitures; 
+	/**
+	 * Variable boolean qui dit s'il faut refaire l'algorithme ou pas
+	 */
+	private boolean redoAlgorithme;
+	/**
+	 * Liste des voitures présentes
+	 */
+	private ArrayList<Car> ListeVoitures;
+	/**
+	 * Liste des clients présents
+	 */
 	private ArrayList<Client> ListeClients;
+	/**
+	 * Nombre de voiture dans la simulation
+	 */
 	private int nbVoituresSimulation;
+	/**
+	 * Nombre de client dans la simulation
+	 */
 	private int nbClientsSimulation;
 	private Client notTargettedYet;
 	private Car carSimulation;
 	private Client selectedClient;
-	private double carSpeedMean;
-	double clientSpeedSum;
+	
 	int arrivedClient;
-	private double clientSpeedMean; //Simulation
-	private double clientRealSpeedMean; //Simulation
+	
+	/**
+	 *  STAT - Taux de voyageurs arrivés
+	 */
 	private double arrivedRate;
-	private int distSum;
-	private int carbu;
+	/**
+	 * 
+	 */
 	private Model model;
+	/**
+	 * La ville (là où se déroule les voitures) (qui est en fait un tableau)
+	 */
 	private City city;
+	/**
+	 * Utilisée lors de la création de matrice de passage initiale.
+	 */
 	private int occupantMax;
 	
 	/**
@@ -68,7 +105,7 @@ public class Simulation{
 	 * 
 	 * La voiture va passer par les points dans l'ordre du tableau. (puis "incrémentation" Itinairaires[0][1][0] = Itinairaires[0][1][1])
 	 */
-	private Object[][] itineraires;
+	//private Object[][] itineraires;
 	
 	/**
 	 * Nombre de client en attente.
@@ -86,7 +123,7 @@ public class Simulation{
 		this.model = new Model(cLength, sLength);
 		this.city = new City(width, height, this.model);
 		
-		this.needAlgorithme = false;
+		this.redoAlgorithme = false;
 		
 		this.ListeVoitures = new ArrayList<Car>();
 		this.ListeClients = new ArrayList<Client>();
@@ -96,8 +133,6 @@ public class Simulation{
 		this.time = 0;
 		this.arrivedClient = 0;
 		this.arrivedRate = 0;
-		this.distSum = 0;
-		this.carbu = 0;
 		this.notTargettedYet = null;
 		this.carSimulation = null;
 		this.selectedClient = null;
@@ -114,7 +149,7 @@ public class Simulation{
 		this.ListeVoitures.add(new Car(CoordX,CoordY));
 		nbVoituresSimulation++;
 		this.carSimulation = (this.ListeVoitures.get(nbVoituresSimulation-1));
-		this.needAlgorithme = true;
+		this.redoAlgorithme = true;
 	}
 
 	/**
@@ -143,7 +178,7 @@ public class Simulation{
 	 * @since Build III -  v0.1
 	 */
 	private void newClient(int x, int y) {
-		this.needAlgorithme = true;
+		this.redoAlgorithme = true;
 		this.notTargettedYet = new Client(this.time,x,y);
 	}
 	
@@ -163,7 +198,7 @@ public class Simulation{
 		if(dist(this.selectedClient.getPosClient()[0],this.selectedClient.getPosClient()[1])==0) {
 			deleteClient();
 		}  else {
-			this.needAlgorithme = true;
+			this.redoAlgorithme = true;
 		}
 	}
 	
@@ -176,7 +211,7 @@ public class Simulation{
 		this.ListeVoitures.remove(this.carSimulation);
 		this.nbVoituresSimulation--;
 		this.carSimulation = null;
-		this.needAlgorithme = true;
+		this.redoAlgorithme = true;
 	}
 	
 	/**
@@ -195,7 +230,7 @@ public class Simulation{
 			this.nbClientsSimulation--;
 		}
 		this.selectedClient = null;
-		this.needAlgorithme = true;
+		this.redoAlgorithme = true;
 	}
 
 	/**
@@ -291,7 +326,7 @@ public class Simulation{
 
 		setParcours(matriceDePassage,carAlgoList,clientAlgoList);
 	
-		this.needAlgorithme = false;
+		this.redoAlgorithme = false;
 	}
 	
 	public void executeAlgo() {
@@ -587,6 +622,8 @@ public class Simulation{
 		int speedSum = 0;
 		//Somme des vitesses instantanées des clients
 		double clientRealSpeedSum = 0;
+		//somme ???
+		this.model.setClientSpeedSum(0);
 		for(Iterator<Car> it= this.ListeVoitures.iterator();it.hasNext();)
 		{
 			Car car = it.next();
@@ -627,8 +664,8 @@ public class Simulation{
 					//Sinon on l'y enlève
 					else{
 						arrivedClient++;
-						clientSpeedSum += (double)dist(step.cli.getPosClient()[0],step.cli.getPosClient()[1]) 
-								/(double)(this.time-step.cli.appearanceMoment);
+						this.model.addClientSpeedSum((double)dist(step.cli.getPosClient()[0],step.cli.getPosClient()[1]) 
+								/(double)(this.time-step.cli.appearanceMoment));
 						car.getOccupantListCar().remove(step.cli);
 						this.ListeClients.remove(step.cli);
 						this.nbClientsSimulation--;
@@ -657,7 +694,7 @@ public class Simulation{
 		}
 		//CALCUL DES VITESSES MOYENNES
 		this.model.setCarSpeedMean((activeCar!=0)?((double) speedSum / (double) activeCar):0);
-		this.model.setClientSpeedMean((arrivedClient!=0)?(clientSpeedSum/(double)arrivedClient):0);
+		this.model.setClientSpeedMean((arrivedClient!=0)?(this.model.getClientSpeedSum()/(double)arrivedClient):0);
 		for(Client cli: this.ListeClients)
 			clientRealSpeedSum += (cli.getCarClient() == null)?0:(double)dist(cli.getPosClient()[0],cli.getCarClient().getPosCar()) 
 			/(double)(this.time-cli.appearanceMoment);
@@ -706,12 +743,12 @@ public class Simulation{
 		this.time = time;
 	}
 
-	public boolean isNeedAlgorithme() {
-		return needAlgorithme;
+	public boolean isRedoAlgorithme() {
+		return redoAlgorithme;
 	}
 
-	public void setNeedAlgorithme(boolean needAlgorithme) {
-		this.needAlgorithme = needAlgorithme;
+	public void setredoAlgorithme(boolean redoAlgorithme) {
+		this.redoAlgorithme = redoAlgorithme;
 	}
 
 	public int getNbVoituresSimulation() {
@@ -747,20 +784,13 @@ public class Simulation{
 	}
 
 	public double getCarSpeedMean() {
-		return carSpeedMean;
+		return this.model.getCarSpeedMean();
 	}
 
 	public void setCarSpeedMean(double carSpeedMean) {
-		this.carSpeedMean = carSpeedMean;
+		this.model.setCarSpeedMean(carSpeedMean);
 	}
 
-	public double getClientSpeedSum() {
-		return clientSpeedSum;
-	}
-
-	public void setClientSpeedSum(double clientSpeedSum) {
-		this.clientSpeedSum = clientSpeedSum;
-	}
 
 	public int getArrivedClient() {
 		return arrivedClient;
@@ -771,19 +801,19 @@ public class Simulation{
 	}
 
 	public double getClientSpeedMean() {
-		return clientSpeedMean;
+		return  this.model.getClientSpeedMean();
 	}
 
 	public void setClientSpeedMean(double clientSpeedMean) {
-		this.clientSpeedMean = clientSpeedMean;
+		this.model.setClientSpeedMean(clientSpeedMean);
 	}
 
 	public double getClientRealSpeedMean() {
-		return clientRealSpeedMean;
+		return  this.model.getClientRealSpeedMean();
 	}
 
 	public void setClientRealSpeedMean(double clientRealSpeedMean) {
-		this.clientRealSpeedMean = clientRealSpeedMean;
+		this.model.setClientRealSpeedMean(clientRealSpeedMean);
 	}
 
 	public double getArrivedRate() {
@@ -792,22 +822,6 @@ public class Simulation{
 
 	public void setArrivedRate(double arrivedRate) {
 		this.arrivedRate = arrivedRate;
-	}
-
-	public int getDistSum() {
-		return distSum;
-	}
-
-	public void setDistSum(int distSum) {
-		this.distSum = distSum;
-	}
-
-	public int getCarbu() {
-		return carbu;
-	}
-
-	public void setCarbu(int carbu) {
-		this.carbu = carbu;
 	}
 
 	public Model getModel() {

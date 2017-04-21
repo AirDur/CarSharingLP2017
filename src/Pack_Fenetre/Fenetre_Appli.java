@@ -28,6 +28,18 @@ import Pack_Appli.Saving;
  * @since Build III -  v0.0
  */
 public class Fenetre_Appli extends JFrame{
+	
+	
+	/*
+	   _____       _ _   _       _ _           _   _             
+	  |_   _|     (_) | (_)     | (_)         | | (_)            
+	    | |  _ __  _| |_ _  __ _| |_ ___  __ _| |_ _  ___  _ __  
+	    | | | '_ \| | __| |/ _` | | / __|/ _` | __| |/ _ \| '_ \ 
+	   _| |_| | | | | |_| | (_| | | \__ \ (_| | |_| | (_) | | | |
+	  |_____|_| |_|_|\__|_|\__,_|_|_|___/\__,_|\__|_|\___/|_| |_|
+	*/
+	
+	
 	private static final long serialVersionUID = -3022785407645996324L;
 	//On déclare les variables pour pouvoir récupèrer leur valeur et les modifier
 	private CityBoard board;
@@ -36,38 +48,33 @@ public class Fenetre_Appli extends JFrame{
 	private JButton dataButton;
 	private JButton helpButton;
 	private JButton quitButton;
-	private JComboBox<String> savedSimuComboBox;
 	private JButton displaySavedSimuButton;
 	private JButton deleteSavedSimuButton;
 	private JButton newSavedSimuButton;
 	private JSlider speedSlider;
 	private JSlider costSlider;
+	private JSlider probabilitySlider;
 	private JSpinner stepSpinner;
-	private JCheckBox divideCheckBox;
 	private JSpinner occupantSpinner;
 	private JSpinner blockSizeSpinner;
-	private JCheckBox addClientCheckBox;
 	private JSpinner addClientSpinner;
 	private JSpinner intervalSpinner;
-	private JSlider probabilitySlider;
+	private JCheckBox divideCheckBox;
+	private JCheckBox addClientCheckBox;
+	private JComboBox<String> savedSimuComboBox;
 	
 	private RadioButton[] algorithmeArray;
 	ButtonGroup algorithme;
 	
-	/**
-	 * Cette fonction permet de récupèrer le numéro de l'algorithme sélectioné
-	 * @return
-	 * @version Build III -  v0.0
-	 * @since Build III -  v0.0
-	 */
-	public int getAlgorithmeId(){
-		int algoId = 0;
-		RadioButton[] listRB = getAlgorithmeArray();
-		while(!listRB[algoId].isSelected()){
-			algoId++;
-		}
-		return algoId;
-	}
+	/*                                                   
+    _____                _                   _                  
+   / ____|              | |                 | |                 
+  | |     ___  _ __  ___| |_ _ __ _   _  ___| |_ ___ _   _ _ __ 
+  | |    / _ \| '_ \/ __| __| '__| | | |/ __| __/ _ \ | | | '__|
+  | |___| (_) | | | \__ \ |_| |  | |_| | (__| ||  __/ |_| | |   
+   \_____\___/|_| |_|___/\__|_|   \__,_|\___|\__\___|\__,_|_|  
+	  */
+	
 	
 	/**
 	 * Initialisation de la fenêtre
@@ -84,13 +91,24 @@ public class Fenetre_Appli extends JFrame{
 		setContentPane(container);
 		
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(app);
-		setTitle("Car Sharing");
+		setTitle("Car Share");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  	pack();
 		setLocationRelativeTo(null);
 	  	setVisible(true);
 	}
 	
+	
+	/*
+          _             _     ______ _                           _   
+    /\   (_)           | |   |  ____| |                         | |  
+   /  \   _  ___  _   _| |_  | |__  | | ___ _ __ ___   ___ _ __ | |_ 
+  / /\ \ | |/ _ \| | | | __| |  __| | |/ _ \ '_ ` _ \ / _ \ '_ \| __|
+ / ____ \| | (_) | |_| | |_  | |____| |  __/ | | | | |  __/ | | | |_ 
+/_/    \_\ |\___/ \__,_|\__| |______|_|\___|_| |_| |_|\___|_| |_|\__|
+        _/ |                                                         
+       |__/                                                          
+	 */
 	/**
 	 * Construction du contenu de l'interface 
 	 * @since Build III -  v0.1
@@ -282,12 +300,12 @@ public class Fenetre_Appli extends JFrame{
 		occupantLayout.setAlignmentX(Component.LEFT_ALIGNMENT);
 		return occupantLayout;
 	}
+	
 	/**
 	 *  OBJETS RELATIFS A LA TAILLE DES BLOCKS 
 	 *  @since Build III -  v0.1
 	 * @version Build III - v0.1
 	 *  */
-	
 	private JPanel chooseBlockSize(Application app) {
 		JLabel blockSizeLabel = new JLabel("Taille des blocks :");
 		setBlockSizeSpinner(new JSpinner(new SpinnerNumberModel(0,0,getBoard().getBoardHeight(),1)));
@@ -299,6 +317,7 @@ public class Fenetre_Appli extends JFrame{
 		blockSizeLayout.setAlignmentX(Component.LEFT_ALIGNMENT);
 		return blockSizeLayout;
 	}
+	
 	/**
 	 *  OBJETS RELATIFS A L'AFFICHAGE DE SIMULATIONS ENREGISTREES
 	 *   @since Build III -  v0.1
@@ -346,8 +365,7 @@ public class Fenetre_Appli extends JFrame{
 	 * @return
 	 *   @since Build III -  v0.1
 	 * @version Build III - v0.1
-	 */
-	 
+	 */	 
 	private JPanel chooseClient(Application app) {
 		setAddClientCheckBox(new JCheckBox("Ajouter "));
 		getAddClientCheckBox().addActionListener(app);
@@ -372,9 +390,76 @@ public class Fenetre_Appli extends JFrame{
 		return addClientLayout;
 	}
 	
+/*
+  _____ _                              		  ______ _        _   
+ / ____| |                             		 |  ____| |      | |  
+| |    | |__   __ _ _ __   __ _  ___    	 | |__  | |_ __ _| |_ 
+| |    | '_ \ / _` | '_ \ / _` |/ _ \     	 |  __| | __/ _` | __|
+| |____| | | | (_| | | | | (_| |  __/     	 | |____| || (_| | |_ 
+ \_____|_| |_|\__,_|_| |_|\__, |\___| ______ |______|\__\__,_|\__|
+                           __/ |     |______|                   
+                          |___/              
+ */
+	/**
+	 * "Reconstruit" la fenetre selon une sauvegarde
+	 * @since Build III - v0.3
+	 * @return
+	 */
+	public void rebuild(int[][] t) {
+		this.getAlgorithmeArray()[t[0][0]].setSelected(true);
+		this.getCostSlider().setValue(t[0][1]);
+		this.getDivideCheckBox().setSelected(t[0][2]==1);
+		this.getStepSpinner().setValue(t[0][3]);
+		this.getOccupantSpinner().setValue(t[0][4]);
+		this.getBlockSizeSpinner().setValue(t[0][5]);
+		this.getSpeedSlider().setValue(t[0][6]);
+		this.getAddClientCheckBox().setSelected(t[0][7]!=0);
+		this.addClientEvent();
+		if(t[0][7]!=0){
+			this.getAddClientSpinner().setValue(t[0][7]);
+			this.getIntervalSpinner().setValue(t[0][8]);
+			this.getProbabilitySlider().setValue(t[0][9]);
+		}
+	}
 	
-		
+	/**
+	 * Actions lorsque la case d'ajout de clients est cochée ou décochée
+	 * @param isChecked
+	 * @version Build III -  v0.3
+	 * @since Build III -  v0.0
+	 */
+	public void addClientEvent(){
+		boolean isChecked = this.getAddClientCheckBox().isSelected();
+		this.getAddClientSpinner().setEnabled(isChecked);
+		this.getIntervalSpinner().setEnabled(isChecked);
+		this.getProbabilitySlider().setEnabled(isChecked);
+	}	
+	
+	/*
+	   _____      _               _____      _   
+	  / ____|    | |     ___     / ____|    | |  
+	 | |  __  ___| |_   ( _ )   | (___   ___| |_ 
+	 | | |_ |/ _ \ __|  / _ \/\  \___ \ / _ \ __|
+	 | |__| |  __/ |_  | (_>  <  ____) |  __/ |_ 
+	  \_____|\___|\__|  \___/\/ |_____/ \___|\__|
+	                                             
+	  */  
 
+	/**
+	 * Cette fonction permet de récupèrer le numéro de l'algorithme sélectioné
+	 * @return
+	 * @version Build III -  v0.0
+	 * @since Build III -  v0.0
+	 */
+	public int getAlgorithmeId(){
+		int algoId = 0;
+		RadioButton[] listRB = getAlgorithmeArray();
+		while(!listRB[algoId].isSelected()){
+			algoId++;
+		}
+		return algoId;
+	}
+	
 	public JComboBox<String> getSavedSimuComboBox() {
 		return savedSimuComboBox;
 	}

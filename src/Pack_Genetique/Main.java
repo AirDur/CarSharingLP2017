@@ -2,7 +2,7 @@ package Pack_Genetique;
 
 /**
  * Class Main qui permet de faire tourner l'algorithme.
- * Doit à terme disparaitre.
+ * Doit Ã  terme disparaitre.
  * 
  * @author Romain Duret
  * @version Build III -  v0.2
@@ -24,15 +24,17 @@ public class Main {
 	 */
 	protected static Passager[] lesPassagers;
 	/**
-	 * Nombre d'itération à affectuer après la dernière diminution de taille
+	 * Nombre d'itÃ©ration Ã  affectuer aprÃ¨s la derniÃ¨re diminution de taille
 	 */
 	protected static int nbIterations = 100;
 	/**
 	 * Nombre de passager en tout
 	 */
-    protected static int nbPassager = 20;
+
+    protected static int nbPassager = 40;
+
     /**
-     * Taille de la population utilisée par l'algo génétique
+     * Taille de la population utilisÃ©e par l'algo gÃ©nÃ©tique
      */
     protected static int taillePopulation = 10;
     /**
@@ -44,19 +46,31 @@ public class Main {
      */
     protected static final int nbPlaceVoiture = 4;
     /**
-     * Premiere solution trouvée (distance)
+
+     * Taille de la grille
+     */
+    protected static final int sizeGrille = 20;
+    /**
+
+     * Premiere solution trouvÃ©e (distance)
      */
     int premiereSolution = 0;
     /**
-     * Meilleure soltuion trouvée (distance)
+     * Meilleure soltuion trouvÃ©e (distance)
      */
     int meilleureSolution;
     /**
-     * Meilleure combinaison de Passager distribué dans des voitures
+
+     * Solution Ã©goiste (1 voiture / passager)
+     */
+    int egoisteSolution;
+    /**
+
+     * Meilleure combinaison de Passager distribuÃ© dans des voitures
      */
     PassagerParVoiture meilleurPassagerParVoiture;
     /**
-     * Conteur de génération
+     * Conteur de gÃ©nÃ©ration
      */
     int generationCount;
     
@@ -68,6 +82,7 @@ public class Main {
   | |    / _ \| '_ \/ __| __| '__| | | |/ __| __/ _ \ | | | '__|
   | |___| (_) | | | \__ \ |_| |  | |_| | (__| ||  __/ |_| | |   
    \_____\___/|_| |_|___/\__|_|   \__,_|\___|\__\___|\__,_|_|  
+
 	  */
     
     /**
@@ -86,30 +101,33 @@ public class Main {
     	
     	long debut = System.currentTimeMillis(); //Debut du compteur
      	
- 		Main.lesPassagers = Passager.generatePassagers(nbPassager); //passager créé aléatoirement
+ 		Main.lesPassagers = Passager.generatePassagers(nbPassager); //passager crÃ©Ã© alÃ©atoirement
  		
         
- 		Population myPop = this.execute(); //exuction de l'algo génétique 
+ 		Population myPop = this.execute(); //exuction de l'algo gÃ©nÃ©tique 
  		
  		//this.meilleureSolution =  myPop.getMoreCompetent().getDistanceChemin(); //taille de la meilleure solution
  		this.affichage(debut);
     }
  
     /**
-     * Execution des itérations
+     * Execution des itÃ©rations
      * @return
      * @version Build III -  v0.2
 	 * @since Build III -  v0.2
      */
     public Population execute() {
     	int nbIterationMeilleureSolution = 0;
-    	 Population myPop = new Population(taillePopulation, true); //création de la population initialie
+    	 Population myPop = new Population(taillePopulation, true); //crÃ©ation de la population initialie
     	 this.generationCount = 0;
     	 this.meilleureSolution =  myPop.getMoreCompetent().getDistanceChemin();
+
+    	 this.egoisteSolution = Passager.getPireDistance(lesPassagers);
     	 
     	 while (nbIterationMeilleureSolution < nbIterations ) {
              this.generationCount++;
-             if(this.generationCount%10==0) System.out.println("Generation: " + this.generationCount + " distance parcourue: " + myPop.getMoreCompetent().getDistanceChemin()+"m");
+             /*if(this.generationCount%10==0)*/ System.out.println("Generation: " + this.generationCount + " distance parcourue: " + myPop.getMoreCompetent().getDistanceChemin()+"m");
+
              myPop = Algo_Genetique.evolvePopulation(myPop);
              if (myPop.getMoreCompetent().getDistanceChemin() < this.meilleureSolution){
             	 this.meilleureSolution = myPop.getMoreCompetent().getDistanceChemin();
@@ -126,6 +144,7 @@ public class Main {
     }
     
     /*
+
            __  __ _      _                            
     /\    / _|/ _(_)    | |                     
    /  \  | |_| |_ _  ___| |__   __ _  __ _  ___ 
@@ -134,9 +153,10 @@ public class Main {
 /_/    \_\_| |_| |_|\___|_| |_|\__,_|\__, |\___|
                                       __/ |     
                                      |___/       
+
 */      
     /**
-     * Affichage des données dans la console
+     * Affichage des donnÃ©es dans la console
      * @version Build III -  v0.2
 	 * @since Build III -  v0.2
      */
@@ -147,18 +167,21 @@ public class Main {
     	System.out.println("---------------------");
         System.out.println("Solution found ! Number of generations created : "+ this.generationCount);
         System.out.println("Distance: " + (float)this.meilleureSolution/100+" Km");
-        System.out.println("Distance au début : " + (float)this.premiereSolution/100+" Km");
+        System.out.println("Distance au dÃ©but : " + (float)this.premiereSolution/100+" Km");
+
+        System.out.println("Distance total 1 par 1 : " + (float)this.egoisteSolution/100 + "Km");
+
         System.out.println("---------------------");
-        System.out.println("Répartition des passagers :");
+        System.out.println("RÃ©partition des passagers :");
         this.meilleurPassagerParVoiture.afficherPassagerOnVoitures();
     
         System.out.println("---------------------");
-        System.out.println("Matrice des points à parcourir : ");
+        System.out.println("Matrice des points Ã  parcourir : ");
 
         this.meilleurPassagerParVoiture.afficherPoints();
         
         long fin = System.currentTimeMillis();
-        System.out.println("Méthode exécutée en " + Long.toString(fin - debut) + " millisecondes");
+        System.out.println("MÃ©thode exÃ©cutÃ©e en " + Long.toString(fin - debut) + " millisecondes");
 
     }
 }

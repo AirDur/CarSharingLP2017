@@ -15,7 +15,7 @@ public class Client
 	private int idClient;
 	int appearanceMoment;
 	/**
-	 * @see Point
+	 * @see PositionPassager
 	 */
 	private Point[] posClient;
 	/**

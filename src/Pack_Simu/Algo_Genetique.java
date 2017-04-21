@@ -7,6 +7,6 @@ package Pack_Simu;
  * @since Build III -  v0.0
  */
 
-public class Algo_Genetique implements I_Algorithme {
+public class Algo_Genetique {
 	//CA CEST MOI QUI DOIT LE FAIRE VOILA <3
 }

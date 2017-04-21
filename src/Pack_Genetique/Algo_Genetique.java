@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Classe qui permet de gérer l'Algorithme Génétique
+ * Classe qui permet de gÃ©rer l'Algorithme GÃ©nÃ©tique
  * 
  * @author Romain Duret
  * @version Build III -  v0.0
@@ -39,7 +39,7 @@ public class Algo_Genetique {
     
     /**
      * Evoluer la population : <br>
-     * On garde le meilleur Groupe, on créer un nouveau groupe de passager <br>
+     * On garde le meilleur Groupe, on crÃ©er un nouveau groupe de passager <br>
      * On croise
      * et on mute 
      * @param pop Population (voitures)
@@ -124,12 +124,13 @@ public class Algo_Genetique {
     }
     
     /**
-     * Swap de façon aléatoire les passagers
+     * Swap de faÃ§on alÃ©atoire les passagers
      * @param PassagerParVoiture
      */
     private static void randomSwapPassagers(PassagerParVoiture PassagerParVoiture){
-		int passager1 = (int)(Math.random() * 20 + 1);
-		int passager2 = (int)(Math.random() * 20 + 1);
+		int passager1 = (int)(Math.random() * Main.nbPassager + 1);
+		int passager2 = (int)(Math.random() * Main.nbPassager + 1);
+
 		Passager passagerTmp = null;
 		int[] coord1 = new int[2];
 		int[] coord2 = new int[2];
@@ -152,13 +153,13 @@ public class Algo_Genetique {
     }
     
     /**
-     * Création d'un battle royale entre plusieurs PassagerParVoitures de la population
+     * CrÃ©ation d'un battle royale entre plusieurs PassagerParVoitures de la population
      * @param pop
      * @return PassagerParVoiture gagnant !
      */
     private static PassagerParVoiture tournamentSelection(Population pop) {
         Population tournament = new Population(tournamentSize, false);
-        // Les participants sont tirés au sort
+        // Les participants sont tirÃ©s au sort
         for (int i = 0; i < tournamentSize; i++) {
             int randomId = (int) (Math.random() * pop.getSize());
             tournament.savePassagerOnVoiture(i, pop.getPassagerOnVoiture(randomId));

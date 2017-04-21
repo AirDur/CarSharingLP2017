@@ -28,13 +28,13 @@ public class PassagerParVoiture {
 	 * M(i,2*j)
 	 */
 	PositionPassager[][] pointsDePassage;
-	private int competence = 0;
+
 	/**
-	 * RecursivitÈ : poids du chemin optimal
+	 * Recursivit√© : poids du chemin optimal
 	 */
 	private int U;
 	/**
-	 * RÈcursivitÈ : chemin le plus optimal
+	 * R√©cursivit√© : chemin le plus optimal
 	 */
 	private PositionPassager[][] passageOptimal;
 	
@@ -70,13 +70,13 @@ public class PassagerParVoiture {
 	
 	
   /** 
-   * on repartit alÈatoirement nbPassager (dans Main) passagers dans (nbVoiture) voitures
+   * on repartit al√©atoirement nbPassager (dans Main) passagers dans (nbVoiture) voitures
    * @version Build III -  v0.2
 	 * @since Build III -  v0.0
    */
 	
     public void generatePassagerOnVoiture() {
-    	//on repartit alÈatoirement les 20 passagers dans les 5 voitures
+    	//on repartit al√©atoirement les 20 passagers dans les 5 voitures
     	this.pointsDePassage = new PositionPassager[Main.nbVoiture][Main.nbPlaceVoiture*2];
     	Passager[] listeDesPassagers= new Passager[Main.nbPassager];
     	for(int i = 0; i < Main.nbPassager; i++)
@@ -93,10 +93,10 @@ public class PassagerParVoiture {
 		}
 
 	/**
-	 * Pour chaque voiture on attribue l'ordre de passage ‡ chaque dÈpart et dÈstination de chaque passager
+	 * Pour chaque voiture on attribue l'ordre de passage √† chaque d√©part et d√©stination de chaque passager
 	 * <br>
-	 * EffectuÈ dans l'ordre "normale" (pas de dÈpot avant
-	 * @version Build III -  v0.2
+	 * Effectu√© dans l'ordre "normale" (pas de d√©pot avant
+	 * @version Build III -  v0.3
 	 * @since Build III -  v0.0
 	 */
     public void attribuerPointsDePassage() {
@@ -112,16 +112,16 @@ public class PassagerParVoiture {
 	}
     
     /*
-    * MÈthode rÈ-rÈcursive qui initialise les variables
+    * M√©thode r√©-r√©cursive qui initialise les variables
     * @since Build III - v0.2
     * @version Build III - v0.2
     * @param passagers liste des passagers
     */
    private void Pre_Algo_DeterministePourPoint(Passager[] passagers, int numeroVoiture) {
-   	boolean[] selected = new boolean[passagers.length]; //dÈclare si dÈj‡ sÈlectionnÈ.
+   	boolean[] selected = new boolean[passagers.length]; //d√©clare si d√©j√† s√©lectionn√©.
    	for(int k=0; k < selected.length; k++) { selected[k] = false; }
    	
-   	boolean[] possable = new boolean[passagers.length]; //dÈclare si dÈj‡ sÈlectionnÈ.
+   	boolean[] possable = new boolean[passagers.length]; //d√©clare si d√©j√† s√©lectionn√©.
    	for(int k=0; k < selected.length; k++) { possable[k] = true; }
    	
    	PositionPassager[] listeDesPoints = new PositionPassager[Main.nbPlaceVoiture*2];
@@ -132,8 +132,8 @@ public class PassagerParVoiture {
 	}
    
    /**
-    * RÈcursif qui teste toutes les combinaisons possibles <br>
-    * En s'inspirant de l'algorithme sac ‡ dos, on ne sÈlectionne que le parcours le plus petit et on le stock (this.passageOptimal) <br>
+    * R√©cursif qui teste toutes les combinaisons possibles <br>
+    * En s'inspirant de l'algorithme sac √† dos, on ne s√©lectionne que le parcours le plus petit et on le stock (this.passageOptimal) <br>
     * On utilise this.U pour connaitre la taille du chemin
     * @since Build III - v0.0
     * @version Build III - v0.2
@@ -157,7 +157,7 @@ public class PassagerParVoiture {
        			}
    			}		
    		}
-   	} else { //cas rÈcursif
+   	} else { //cas r√©cursif
    		for(int i=0;i<Main.nbPlaceVoiture;i++) {
    			
    			boolean[] tempon1 = new boolean[selected.length];
@@ -178,7 +178,7 @@ public class PassagerParVoiture {
    				tempon2[i] = false;
    	    			
    				this.Algo_DeterministeParRecursivite(passagers, listeDesPoints, tempon2, selected, n+1, numeroVoiture);
-   			}  //Il y a des cas o˘ rien ne se passe et on saute
+   			}  //Il y a des cas o√π rien ne se passe et on saute
    		}	
    	}
    }
@@ -187,11 +187,12 @@ public class PassagerParVoiture {
 
 
 /*
-          __  __ _      _                      
-   /\    / _|/ _(_)    | |                     
-  /  \  | |_| |_ _  ___| |__   __ _  __ _  ___ 
- / /\ \ |  _|  _| |/ __| '_ \ / _` |/ _` |/ _ \
-/ ____ \| | | | | | (__| | | | (_| | (_| |  __/
+
+           __  __ _      _                      
+    /\    / _|/ _(_)    | |                     
+   /  \  | |_| |_ _  ___| |__   __ _  __ _  ___ 
+  / /\ \ |  _|  _| |/ __| '_ \ / _` |/ _` |/ _ \
+ / ____ \| | | | | | (__| | | | (_| | (_| |  __/
 /_/    \_\_| |_| |_|\___|_| |_|\__,_|\__, |\___|
                                      __/ |     
                                     |___/      
@@ -199,17 +200,17 @@ public class PassagerParVoiture {
    
    
    public void afficherPassagerOnVoitures() {
-		for(int i = 0 ; i < 5 ; i++){
-			for(int j = 0 ; j < 4 ; j++){
+		for(int i = 0 ; i < Main.nbVoiture  ; i++){
+			for(int j = 0 ; j < Main.nbPlaceVoiture ; j++){
 				System.out.print(passagersOrdonnes[i][j].getId() + " ");
 			}
 		System.out.println("");
 		}
     }
    
-   public void afficherPoints() {
-		for(int i = 0 ; i < 5 ; i++){
-			for(int j = 0 ; j < 8 ; j++){
+   public void afficherPoints() { 
+		for(int i = 0 ; i < Main.nbVoiture  ; i++){
+			for(int j = 0 ; j < (Main.nbPlaceVoiture*2) ; j++){
 				System.out.print(pointsDePassage[i][j].toString() + " ");
 			}
 		System.out.println("");
@@ -247,7 +248,7 @@ public class PassagerParVoiture {
    }
    
    /**
-    *  Trouver le resultat d'un GroupePassager, la somme des distances entre le 1er et le 2nd, puis le 2nd et le 3Ëme.... 
+    *  Trouver le resultat d'un GroupePassager, la somme des distances entre le 1er et le 2nd, puis le 2nd et le 3√®me.... 
     * @param GroupePassager
     * @return
     * @version Build III -  v0.1
@@ -264,10 +265,10 @@ public class PassagerParVoiture {
         */
        for (int i = 0; i < this.pointsDePassage.length - 1 ; i++){
            for (int j = 0; j < this.pointsDePassage[i].length - 1 ; j++){
-       	distanceEntreDeuxPoints = 0;
-       	distanceEntreDeuxPoints += Math.abs(this.pointsDePassage[i][j].getPos_y() - this.pointsDePassage[i][j+1].getPos_y());
-       	distanceEntreDeuxPoints += Math.abs(this.pointsDePassage[i][j].getPos_x() - this.pointsDePassage[i][j+1].getPos_x());
-       	resultat += distanceEntreDeuxPoints;
+        	   distanceEntreDeuxPoints = 0;
+        	   distanceEntreDeuxPoints += Math.abs(this.pointsDePassage[i][j].getPos_y() - this.pointsDePassage[i][j+1].getPos_y());
+        	   distanceEntreDeuxPoints += Math.abs(this.pointsDePassage[i][j].getPos_x() - this.pointsDePassage[i][j+1].getPos_x());
+        	   resultat += distanceEntreDeuxPoints;
            }
        }
    	
@@ -276,7 +277,7 @@ public class PassagerParVoiture {
    
    
    /**
-    * Trouve la samme des distances pour un seul vÈhicule.
+    * Trouve la samme des distances pour un seul v√©hicule.
     * @version Build III -  v0.2
 	 * @since Build III -  v0.2
     * @param listeDesPoints
