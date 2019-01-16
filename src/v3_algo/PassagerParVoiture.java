@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 
 import v3_window.Cell;
-import v3_window.Main;
 import v3_window.States;
 
 /**
@@ -35,15 +34,15 @@ public class PassagerParVoiture {
 	 */
 	Cell[][] pointsDePassage;
 	/**
-	 * tableau de nombre de passager réel/voiture
+	 * tableau de nombre de passager rï¿½el/voiture
 	 */
 	int[] nbPassagerParVoiture;
 	/**
-	 * Recursivité : poids du chemin optimal
+	 * Recursivitï¿½ : poids du chemin optimal
 	 */
 	private int U;
 	/**
-	 * Récursivité : chemin le plus optimal
+	 * Rï¿½cursivitï¿½ : chemin le plus optimal
 	 */
 	private Cell[][] passageOptimal;
 	/**
@@ -51,7 +50,7 @@ public class PassagerParVoiture {
 	 */
 	int cost;
 	/**
-	 * Coût d'un déplacement
+	 * Coï¿½t d'un dï¿½placement
 	 */
     public static final int COST = 1;
 	
@@ -68,7 +67,7 @@ public class PassagerParVoiture {
 	  */
 	
 	/**
-	 * On créer des tableau de Passager de de Possitionpassager
+	 * On crï¿½er des tableau de Passager de de Possitionpassager
 	 */
 	public PassagerParVoiture() {
 		this.passagersOrdonnes = new Passager[Execut_Algo_Genetique.nbVoiture][Execut_Algo_Genetique.nbPlaceVoiture];
@@ -108,7 +107,7 @@ public class PassagerParVoiture {
 	
 	
   /** 
-   * on repartit aléatoirement nbPassager (dans Main) passagers dans (nbVoiture) voitures
+   * on repartit alï¿½atoirement nbPassager (dans Main) passagers dans (nbVoiture) voitures
    * @version Build III -  v0.5
    * @since Build III -  v0.0
    */
@@ -145,10 +144,10 @@ public class PassagerParVoiture {
 
       
     /**
-     * Retourne une liste de passager généré aléatoirement, en fonction des passagers et du nombre de place. <br>
+     * Retourne une liste de passager gï¿½nï¿½rï¿½ alï¿½atoirement, en fonction des passagers et du nombre de place. <br>
      * En gros, le tableau contient tout les passagers possibles. <br>
      * S'il ya plus de place que de passager, on peut se retrouver avec : vide vide P1 P3 vide P5 vide P2 P4
-     * S'il y a autant ou moins de place que de passager, on se retrouve avec une liste sans élément vide : P3 P4 p7 P10 P8 P2 P1 P9 P5 P6
+     * S'il y a autant ou moins de place que de passager, on se retrouve avec une liste sans ï¿½lï¿½ment vide : P3 P4 p7 P10 P8 P2 P1 P9 P5 P6
      * @return
      * @version Build III -  v0.5
 	 * @since Build III -  v0.5
@@ -167,9 +166,9 @@ public class PassagerParVoiture {
     	return listeDesPassagers;
     }
 	/**
-	 * Pour chaque voiture on attribue l'ordre de passage à chaque départ et déstination de chaque passager
+	 * Pour chaque voiture on attribue l'ordre de passage ï¿½ chaque dï¿½part et dï¿½stination de chaque passager
 	 * <br>
-	 * Effectué dans l'ordre "normale" (pas de dépot avant
+	 * Effectuï¿½ dans l'ordre "normale" (pas de dï¿½pot avant
 	 * @version Build III -  v0.5
 	 * @since Build III -  v0.0
 	 */
@@ -187,16 +186,16 @@ public class PassagerParVoiture {
 	}
     
     /**
-    * Méthode ré-récursive qui initialise les variables
+    * Mï¿½thode rï¿½-rï¿½cursive qui initialise les variables
     * @since Build III - v0.2
     * @version Build III - v0.5
     * @param passagers liste des passagers
     */
     private void Pre_Algo_DeterministePourPoint(Passager[] passagers, int numeroVoiture) {
-	   	boolean[] selected = new boolean[passagers.length]; //déclare si déjà sélectionné.
+	   	boolean[] selected = new boolean[passagers.length]; //dï¿½clare si dï¿½jï¿½ sï¿½lectionnï¿½.
 	   	for(int k=0; k < selected.length; k++) { selected[k] = false; }
 	   	
-	   	boolean[] possable = new boolean[passagers.length]; //déclare si déjà sélectionné.
+	   	boolean[] possable = new boolean[passagers.length]; //dï¿½clare si dï¿½jï¿½ sï¿½lectionnï¿½.
 	   	for(int k=0; k < selected.length; k++) { possable[k] = true; }
 	   	
 	   	Cell[] listeDesPoints = new Cell[this.nbPassagerParVoiture[numeroVoiture]*2];
@@ -207,8 +206,8 @@ public class PassagerParVoiture {
 	}
    
    /**
-    * Récursif qui teste toutes les combinaisons possibles <br>
-    * En s'inspirant de l'algorithme sac à dos, on ne sélectionne que le parcours le plus petit et on le stock (this.passageOptimal) <br>
+    * Rï¿½cursif qui teste toutes les combinaisons possibles <br>
+    * En s'inspirant de l'algorithme sac ï¿½ dos, on ne sï¿½lectionne que le parcours le plus petit et on le stock (this.passageOptimal) <br>
     * On utilise this.U pour connaitre la taille du chemin
     * @since Build III - v0.0
     * @version Build III - v0.2
@@ -236,9 +235,9 @@ public class PassagerParVoiture {
        			}
    			}		
    		}
-  	} else { //cas récursif
-  		//Pour chaque passager, on lit s'il est déjà sélectionné. Si c'est non, on crée une branche, si oui, on saute.
-  		// On lit aussi si le passager est possable. Si oui, on crée une branche, sinon, on saute.
+  	} else { //cas rï¿½cursif
+  		//Pour chaque passager, on lit s'il est dï¿½jï¿½ sï¿½lectionnï¿½. Si c'est non, on crï¿½e une branche, si oui, on saute.
+  		// On lit aussi si le passager est possable. Si oui, on crï¿½e une branche, sinon, on saute.
   		for(int i=0;i<passagers.length;i++) {
 			boolean[] tempon1 = new boolean[selected.length];
   			boolean[] tempon2 = new boolean[possable.length];
@@ -259,7 +258,7 @@ public class PassagerParVoiture {
    				tempon2[i] = false;
    	    			
    				this.Algo_DeterministeParRecursivite(passagers, listeDesPoints, tempon2, selected, n+1, numeroVoiture);
-   			}  //Il y a des cas où rien ne se passe et on saute
+   			}  //Il y a des cas oï¿½ rien ne se passe et on saute
 		
    		}	
    	}
@@ -345,7 +344,7 @@ public class PassagerParVoiture {
 	}
 	
    /**
-    *  Trouver le resultat d'un GroupePassager, la somme des distances entre le 1er et le 2nd, puis le 2nd et le 3ème.... 
+    *  Trouver le resultat d'un GroupePassager, la somme des distances entre le 1er et le 2nd, puis le 2nd et le 3ï¿½me.... 
     * @param GroupePassager
     * @return
     * @version Build III -  v0.1
@@ -437,7 +436,7 @@ public class PassagerParVoiture {
    }
    
    /**
-    * Trouve la samme des distances pour un seul véhicule.
+    * Trouve la samme des distances pour un seul vï¿½hicule.
     * @version Build III -  v0.2
 	 * @since Build III -  v0.2
     * @param listeDesPoints

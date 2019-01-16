@@ -23,7 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**
- * Classe qui gére la création de la fenetre
+ * Classe qui gï¿½re la crï¿½ation de la fenetre
  * @author AirDur
  * @version Build III -  v0.5
  * @since Build III -  v0.5
@@ -55,7 +55,7 @@ public class Window extends JPanel{
 	  //Selecteurs pour le nombre de colonnes et de lignes : 
 	  JSpinner rowsSpinner, columnsSpinner; // Spinners for entering # of rows and columns
 	  
-	  //Variables pour la gestion de la grille : (nombre de ligne, de colonne, taille de la cellule et taille de la flèche 
+	  //Variables pour la gestion de la grille : (nombre de ligne, de colonne, taille de la cellule et taille de la flï¿½che 
 	  public int rows, columns, squareSize/*, arrowSize*/;
 	  
 	  //Listes de cellules : 
@@ -84,7 +84,7 @@ public class Window extends JPanel{
 	  
 	  //Valeurs importantes :
 	  boolean typeColoriage = false; //type de 
-	  boolean promptSelected; //Déclare ce qu'on regarde.
+	  boolean promptSelected; //Dï¿½clare ce qu'on regarde.
 	  boolean realTime;    // Solution is displayed instantly
 	  boolean found;       // flag that the goal was found
 	  boolean searching;   // flag that the search is in progress
@@ -96,7 +96,7 @@ public class Window extends JPanel{
 	  // Controleur de l'animation : 
 	  RepaintAction action;
 	  
-	// A vérifier utilité : 
+	// A vï¿½rifier utilitï¿½ : 
 		  ArrayList<Cell> openSet   = new ArrayList<Cell>();// the OPEN SET
 		  ArrayList<Cell> closedSet = new ArrayList<Cell>();// the CLOSED SET
 		  ArrayList<Cell> graph     = new ArrayList<Cell>();// the set of vertices of the graph
@@ -127,28 +127,28 @@ public class Window extends JPanel{
 			this.columns = 41;
 			this.squareSize = 500/rows;
 			
-			//Récupération de document !
+			//Rï¿½cupï¿½ration de document !
 		    try 							{ this.ouvertureFichier(); } 
 		    catch (FileNotFoundException e) { e.printStackTrace(); }
 		    catch (IOException e) 			{ e.printStackTrace(); }
 		    catch (ParseException e) 		{ e.printStackTrace(); }
 		    
-		    // Paramètres général :
+		    // Paramï¿½tres gï¿½nï¿½ral :
 	        setLayout(null);
 	        this.action = new RepaintAction(this);
 	        MouseHandler listener = mouseListener(); 
 	        setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.blue));
 	        setPreferredSize( new Dimension(width,height) );
 
-	        // Création du message : 
+	        // Crï¿½ation du message : 
 	        this.initialistionMessage();
 
-	        // Création des Selectors : 
+	        // Crï¿½ation des Selectors : 
 	        this.rowsLbl = this.createRowSelector();
 	        this.columnsLbl = this.createColumnSelector();
 	        this.velocity = this.createSpeedSelector();
 
-	        //Création des buttons : 
+	        //Crï¿½ation des buttons : 
 	        this.newgridButton = createButton("New Grid",this.newgridButton);
 	        this.clearButton = createButton("Clear",this.clearButton);
 	        this.clear_2Button = createButton("Clear2", this.clear_2Button);
@@ -192,7 +192,7 @@ public class Window extends JPanel{
 	       
 	        //this.randomButton.setEnabled(false); 
 	        
-	        //Création de la grille :
+	        //Crï¿½ation de la grille :
 	        this.createGrid();
 	        this.fillGrid();
 	
@@ -210,8 +210,8 @@ public class Window extends JPanel{
 	
 
 	/**
-		 * Ajoute un écouteur sur la souris
-		 * @return Un écouteur sur la souris
+		 * Ajoute un ï¿½couteur sur la souris
+		 * @return Un ï¿½couteur sur la souris
 		 * @see MouseHandler
 		 * @version Build III -  v0.5
 		 * @since Build III -  v0.5
@@ -224,8 +224,8 @@ public class Window extends JPanel{
 		}
 
 	    /**
-	     * Ouvre le fichier contenant les données.
-	     * Permet à terme de généraliser afin d'avoir plusieurs langages.
+	     * Ouvre le fichier contenant les donnï¿½es.
+	     * Permet ï¿½ terme de gï¿½nï¿½raliser afin d'avoir plusieurs langages.
 	     * @version Build III -  v0.5
 		 * @since Build III -  v0.5
 	     * @throws FileNotFoundException
@@ -240,7 +240,7 @@ public class Window extends JPanel{
 	    }
 	    
 	    /**
-	     * Créer le curseur de sélection de vitesse
+	     * Crï¿½er le curseur de sï¿½lection de vitesse
 	     * @return
 	     * @version Build III -  v0.5
 		 * @since Build III -  v0.5
@@ -284,7 +284,7 @@ public class Window extends JPanel{
 		}
 		
 		/**
-		 * Créer un sélecteur de ligne
+		 * Crï¿½er un sï¿½lecteur de ligne
 		 * @version Build III -  v0.5
 		 * @since Build III -  v0.5
 		 */
@@ -297,7 +297,7 @@ public class Window extends JPanel{
 		}
 		
 		/**
-		 * Créer un sélecteur de colonne
+		 * Crï¿½er un sï¿½lecteur de colonne
 		 * @version Build III -  v0.5
 		 * @since Build III -  v0.5
 		 */
@@ -320,7 +320,7 @@ public class Window extends JPanel{
 		*/
 		
 		/**
-		 * Créateur Générique de bouton
+		 * Crï¿½ateur Gï¿½nï¿½rique de bouton
 		 * @version Build III -  v0.5
 		 * @since Build III -  v0.5
 		 */
@@ -355,7 +355,7 @@ public class Window extends JPanel{
 		*/
 
 		/**
-	     * Création de la grille (que du vide)
+	     * Crï¿½ation de la grille (que du vide)
 		 * @version Build III -  v0.5
 		 * @since Build III -  v0.5
 	     */
@@ -442,7 +442,7 @@ public class Window extends JPanel{
 	    }
 	    
 	    /**
-		 * Réinitialise la grille selon de nouveaux paramètres (taille de lignes et colonnes)
+		 * Rï¿½initialise la grille selon de nouveaux paramï¿½tres (taille de lignes et colonnes)
 		 * @version Build III -  v0.5
 		 * @since Build III -  v0.5
 		 */

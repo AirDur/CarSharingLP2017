@@ -1,13 +1,11 @@
 package v3_algo;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
-import v3_window.Main;
+import java.util.ArrayList;
+
 import v3_window.Cell;
 
 /**
- * L'Algorithme Génétique. <br>
+ * L'Algorithme Gï¿½nï¿½tique. <br>
  * 
  * 
  * @author Romain Duret
@@ -43,7 +41,7 @@ public class Algo_Genetique {
     
     /**
      * Evoluer la population : <br>
-     * On garde le meilleur Groupe, on créer un nouveau groupe de passager <br>
+     * On garde le meilleur Groupe, on crï¿½er un nouveau groupe de passager <br>
      * On croise
      * et on mute 
      * @param pop Population (voitures)
@@ -80,7 +78,7 @@ public class Algo_Genetique {
     
  
     /**
-     * Déclanche une mutation si le facteur random est déclanché. <br>
+     * Dï¿½clanche une mutation si le facteur random est dï¿½clanchï¿½. <br>
      * On teste s'il y a mutation autant de fois qu'il y a de place en tout dans le groupe de voiture/passager 
      * @version Build III -  v0.6
      * @since Build III -  v0.0
@@ -97,7 +95,7 @@ public class Algo_Genetique {
     
     /**
 	 * Evoluer la population : <br>
-	 * On garde le meilleur Groupe, on créer un nouveau groupe de passager <br>
+	 * On garde le meilleur Groupe, on crï¿½er un nouveau groupe de passager <br>
      * On croise et on mute 
      * @param pop Population (voitures)
      * @return
@@ -105,7 +103,7 @@ public class Algo_Genetique {
      * @since Build III -  v0.0
      */
 	private static void randomSwapPassagers(PassagerParVoiture PassagerParVoiture, int nVoiture){
-		//On génére 2 endroits aléatoire non identiques
+		//On gï¿½nï¿½re 2 endroits alï¿½atoire non identiques
 		int placeTotal = Execut_Algo_Genetique.nbPlaceVoiture* Execut_Algo_Genetique.nbVoiture;
 		int place_1 = (int)(Math.random() * placeTotal);
 		int place_2 = (int)(Math.random() * placeTotal);
@@ -114,7 +112,7 @@ public class Algo_Genetique {
 			place_2 = (int)(Math.random() * placeTotal);
 		}
 		
-		//On créé une mémoire provisoire : 
+		//On crï¿½ï¿½ une mï¿½moire provisoire : 
 		int[] emplacement_1 = new int[3];
 		int[] emplacement_2 = new int[3];
 		
@@ -169,9 +167,9 @@ public class Algo_Genetique {
     }
     
     /**
-     * Sélection en roue de la fortune. <br>
-     * Pour chaque "étape", on sélectionne 4 passagers tirés au sort. On récupère la taille. <br>
-     * Cela donne un poids (50% meilleur, 10% pour le reste, 20% pour un nouveau généré aléatoirement) <br>
+     * Sï¿½lection en roue de la fortune. <br>
+     * Pour chaque "ï¿½tape", on sï¿½lectionne 4 passagers tirï¿½s au sort. On rï¿½cupï¿½re la taille. <br>
+     * Cela donne un poids (50% meilleur, 10% pour le reste, 20% pour un nouveau gï¿½nï¿½rï¿½ alï¿½atoirement) <br>
      * On tire au sort et on renvoie.
      * @param pop Population (voitures)
      * @return
